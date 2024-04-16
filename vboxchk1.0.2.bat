@@ -215,8 +215,10 @@ echo ***************************************************************************
 ) >> %results_file%
 
 echo BMN Number: BMN%BMN%
+echo ******************************************************************************************************
 wmic computersystem get numberofprocessors
 wmic cpu get SocketDesignation, NumberOfCores, NumberOfLogicalProcessors
+echo ******************************************************************************************************
 echo Hostname: %computername% 
 echo VM Host OS:%osversion% %osv%
 echo VitualBox version: %vboxv%
