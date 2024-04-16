@@ -1,5 +1,5 @@
 @echo off
-
+chcp 65001
 rem Check if /debug switch is used
 if "%1" == "/legacy" (
     goto legacy
@@ -141,6 +141,7 @@ if %OS%==64BIT echo 64bit operating system
 
 rem endlocal
 :scrptcondtions
+set scriptver=vboxchk1.0.2
 echo ******************************************************************************************************
 set /p BMN="Please enter the BMN number as a numerical number only e.g. 1234: "
 echo ******************************************************************************************************
@@ -148,7 +149,7 @@ echo Set Data classification Valid entries:O, OS, S, SUKEO, OCCAR-R, C1, C2, C3,
 set /p govclass="Please set the classification of Data? "
 echo ******************************************************************************************************
 
-set scriptver=vboxchk1.0.1
+set scriptver=vboxchk1.0.2
 if /i "%govclass%"=="o" (
     set clss="OFFICIAL"
 ) else if /i "%govclass%"=="os" (
@@ -191,16 +192,20 @@ echo ***** Data classification set to %clss% ***** >> %results_file%
 
 :tail
 rem tail entries for ref.
+
+echo ****************************************************************************************************** >> %results_file%
+echo CPU information of host >> %results_file%
+wmic cpu get name /format:list |more >> %results_file%
+wmic computersystem get numberofprocessors |more >> %results_file%
+wmic cpu get SocketDesignation, NumberOfCores, NumberOfLogicalProcessors |more >> %results_file%
+echo ****************************************************************************************************** >> %results_file%
 (
-echo ******************************************************************************************************
 echo BMN Number: BMN%BMN%
 echo Hostname: %computername% 
-wmic computersystem get numberofprocessors
-wmic cpu get SocketDesignation, NumberOfCores, NumberOfLogicalProcessors 
 echo VM Host OS:%osversion% %osv%
 echo VitualBox version: %vboxv%
 echo VitualBox Installation Directory: %vboxinstall%
-echo VitualBox Guest addons "(if installed)": %guestadd%
+echo VitualBox Guest addons "(if installed)": %guestadd%Fwmic
 echo VitualBox SDK "if installed)":  %vboxSDK%
 echo Script version: %scriptver%
 echo ******************************************************************************************************
@@ -216,6 +221,8 @@ echo ***************************************************************************
 
 echo BMN Number: BMN%BMN%
 echo ******************************************************************************************************
+echo CPU information 
+wmic cpu get name
 wmic computersystem get numberofprocessors
 wmic cpu get SocketDesignation, NumberOfCores, NumberOfLogicalProcessors
 echo ******************************************************************************************************
