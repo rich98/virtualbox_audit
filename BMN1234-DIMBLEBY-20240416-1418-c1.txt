@@ -1,0 +1,44 @@
+***** Data classification set to "C1:OPEN DESIGNED TO BE SHARED PUBLICLY" ***** 
+****************************************************************************************************** 
+CPU information of host 
+
+
+Name=Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz
+
+
+
+
+NumberOfProcessors  
+1                   
+
+
+NumberOfCores  NumberOfLogicalProcessors  SocketDesignation  
+4              8                          U3E1               
+
+
+****************************************************************************************************** 
+BMN Number: BMN1234
+Hostname: DIMBLEBY 
+VM Host OS: Windows 10-11\20XX
+VitualBox version: 7.0.10
+VitualBox Installation Directory: C:\Program Files\Oracle\VirtualBox\
+VitualBox Guest addons "(if installed)": Fwmic
+VitualBox SDK "if installed)":  C:\Program Files\Oracle\VirtualBox\sdk\install\
+Script version: vboxchk1.0.2
+******************************************************************************************************
+Deatailed Virtuakboxtualbox Extension Pack Check
+Extension Packs: 1
+Pack no. 0:   Oracle VM VirtualBox Extension Pack
+Version:        7.0.14
+Revision:       161095
+Edition:        
+Description:    Oracle Cloud Infrastructure integration, Host Webcam, VirtualBox RDP, PXE ROM, Disk Encryption, NVMe, full VM encryption.
+VRDE Module:    VBoxVRDP
+Crypto Module:  VBoxPuelCrypto
+Usable:         true
+Why unusable:   
+******************************************************************************************************
+Registered VM Check
+******************************************************************************************************
+User gas classified the data as: "C1:OPEN DESIGNED TO BE SHARED PUBLICLY" 
+******************************************************************************************************
