@@ -238,7 +238,7 @@ for /f "tokens=2 delims={}" %%a in ('"%vboxinstall%vboxmanage.exe" list vms') do
 echo ******************************************************************************************************
 echo User has classified the data as: %clss% 
 echo ******************************************************************************************************
-) >> %results_file%
+) 2>&1>null >> %results_file%
 
 rem reen view
 
