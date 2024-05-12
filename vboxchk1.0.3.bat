@@ -174,7 +174,7 @@ echo ***************************************************************************
 echo Host information
 echo ******************************************************************************************************
 echo Hostname: %computername% 
-echo VM Host OS:%osname%
+echo VM Host OS:%osname% 
 echo VirtualBox version: %vboxv%
 echo VirtualBox Installation Directory: %vboxinstall%
 echo ******************************************************************************************************
@@ -223,7 +223,7 @@ echo ***************************************************************************
 echo Host information
 echo ******************************************************************************************************
 echo Hostname: %computername% 
-echo VM Host OS:%osname%
+echo VM Host OS:%osname% %OS%
 echo VirtualBox version: %vboxv%
 echo VirtualBox Installation Directory: %vboxinstall%
 echo ******************************************************************************************************
@@ -357,13 +357,14 @@ FOR /F "tokens=2*" %%A IN ('REG QUERY "HKLM\SOFTWARE\Oracle\VirtualBox" /v Pytho
 rem lookup operating system 
 :DlookupOS
 
-for /f "tokens=2*" %%i in ('systeminfo ^| findstr /B /C:"OS Name"') do set osname=%%j
-echo %osname%
+
+for /f "tokens=2*" %%i in ('systeminfo ^| findstr /B /C:"OS Name"') do set Dosname=%%j
+echo %Dosname%
 
 :Dbit
-reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
-if %OS%==32BIT echo 32bit operating system
-if %OS%==64BIT echo 64bit operating system 
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set DOS=32BIT || set DOS=64BIT
+if %DOS%==32BIT echo 32bit operating system
+if %DOS%==64BIT echo 64bit operating system 
 
 
 rem endlocal
@@ -428,7 +429,7 @@ wmic computersystem get numberofprocessors
 wmic cpu get SocketDesignation, NumberOfCores, NumberOfLogicalProcessors
 echo ******************************************************************************************************
 echo Hostname: %computername% 
-echo VM Host OS:%Dosversion% %Dosv%
+echo VM Host OS:%Dosname% %Dosv%
 echo VirtualBox  version: %Dvboxv%
 echo VirtualBox Installation Directory: %Dvboxinstall%
 echo VirtualBox  Guest adds "(if installed)": %Dguestadd%
