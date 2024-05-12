@@ -99,38 +99,8 @@ FOR /F "tokens=2*" %%A IN ('REG QUERY "HKLM\SOFTWARE\Oracle\VirtualBox" /v Pytho
 rem lookup operating system 
 :lookupOS
 
-:xp
-systeminfo | findstr /B /C:"OS Name" > %temp%\osname.txt
-find /I "XP" %temp%\osname.txt > nul
-if %ERRORLEVEL% EQU 0 (
-    set osv=5.1 Windows XP
-) else (
-    goto nextver
-)
-
-:nextver
-
-for /f "tokens=4-5 delims=. " %%i in ('ver') do (
-    if "%%i.%%j"=="10.0" (
-        set osv=Windows 10-11\20XX
-    ) else if "%%i.%%j"=="6.3" (
-        set osv=Windows 8.1\2012R2
-    ) else if "%%i.%%j"=="6.2" (
-        set osv=Windows 8\2012
-    ) else if "%%i.%%j"=="6.1" (
-        set osv=Windows 7\win2k8 R2
-    ) else if "%%i.%%j"=="6.0" (
-        set osv=Windows Vista\win2k8
-    ) else if "%%i.%%j"=="5.2" (
-        set osv=Windows win2k3
-    )
-)
-
-if defined osv (
-    echo %osv%
-) else (
-    echo Unknown Operating System
-)
+for /f "tokens=2*" %%i in ('systeminfo ^| findstr /B /C:"OS Name"') do set osname=%%j
+echo %osname%
 
 :bit
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
@@ -204,7 +174,7 @@ echo ***************************************************************************
 echo Host information
 echo ******************************************************************************************************
 echo Hostname: %computername% 
-echo VM Host OS:%osversion% %osv%
+echo VM Host OS:%osname%
 echo VirtualBox version: %vboxv%
 echo VirtualBox Installation Directory: %vboxinstall%
 echo ******************************************************************************************************
@@ -238,7 +208,7 @@ for /f "tokens=2 delims={}" %%a in ('"%vboxinstall%vboxmanage.exe" list vms') do
 echo ******************************************************************************************************
 echo User has classified the data as: %clss% 
 echo ******************************************************************************************************
-) 2>&1>null >> %results_file%
+) 2>&1 >null >> %results_file%
 
 rem reen view
 
@@ -253,7 +223,7 @@ echo ***************************************************************************
 echo Host information
 echo ******************************************************************************************************
 echo Hostname: %computername% 
-echo VM Host OS:%osversion% %osv%
+echo VM Host OS:%osname%
 echo VirtualBox version: %vboxv%
 echo VirtualBox Installation Directory: %vboxinstall%
 echo ******************************************************************************************************
