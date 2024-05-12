@@ -202,8 +202,8 @@ echo Registered VM Check
 echo ******************************************************************************************************
 for /f "tokens=2 delims={}" %%a in ('"%vboxinstall%vboxmanage.exe" list vms') do (
     echo VM UUID: %%a
-    "%vboxinstall%vboxmanage.exe" showvminfo %%a --details | findstr /B /C:"Guest OS:"
-	"%vboxinstall%vboxmanage.exe" showvminfo %%a --details | findstr /B /C:"State:"
+    "%vboxinstall%vboxmanage.exe" showvminfo %%a --details | findstr /B /C:"Guest OS:" 
+	"%vboxinstall%vboxmanage.exe" showvminfo %%a --details | findstr /B /C:"State:" 
 	)
 echo ******************************************************************************************************
 echo User has classified the data as: %clss% 
@@ -357,38 +357,8 @@ FOR /F "tokens=2*" %%A IN ('REG QUERY "HKLM\SOFTWARE\Oracle\VirtualBox" /v Pytho
 rem lookup operating system 
 :DlookupOS
 
-:Dxp
-systeminfo | findstr /B /C:"OS Name" > %temp%\osname.txt
-find /I "XP" %temp%\osname.txt > nul
-if %ERRORLEVEL% EQU 0 (
-    set  dosv=5.1 Windows XP
-) else (
-    goto Dnextver
-)
-
-:Dnextver
-
-for /f "tokens=4-5 delims=. " %%i in ('ver') do (
-    if "%%i.%%j"=="10.0" (
-        set Dosv=Windows 10-11\20XX
-    ) else if "%%i.%%j"=="6.3" (
-        set Dosv=Windows 8.1\2012R2
-    ) else if "%%i.%%j"=="6.2" (
-        set Dosv=Windows 8\2012
-    ) else if "%%i.%%j"=="6.1" (
-        set Dosv=Windows 7\win2k8 R2
-    ) else if "%%i.%%j"=="6.0" (
-        set Dosv=Windows Vista\win2k8
-    ) else if "%%i.%%j"=="5.2" (
-        set Dosv=Windows win2k3
-    )
-)
-
-if defined Dosv (
-    echo %Dosv%
-) else (
-    echo Unknown Operating System
-)
+for /f "tokens=2*" %%i in ('systeminfo ^| findstr /B /C:"OS Name"') do set osname=%%j
+echo %osname%
 
 :Dbit
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
